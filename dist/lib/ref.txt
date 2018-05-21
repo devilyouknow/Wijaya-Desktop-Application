@@ -1,0 +1,4 @@
+* http://www.oracle.com/technetwork/java/javase/documentation/javadoc-137458.html
+* https://dev.mysql.com/doc/
+* https://stackoverflow.com/questions/tagged/java
+* 
