@@ -1,0 +1,898 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package wijaya;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Vector;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.BorderFactory;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.Timer;
+import javax.swing.border.Border;
+import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+
+/**
+ *
+ * @author salit
+ */
+public class m_Repair_and_replacement extends javax.swing.JFrame {
+
+    /**
+     * Creates new form Home
+     */
+    public m_Repair_and_replacement() {
+        initComponents();
+        
+        lastId();
+        jComboBox1.removeAllItems();
+        fillcomb();
+        fillcombo();
+        loadTable();
+        
+        
+        { //making panel transparent
+       
+        jPanel3.setBackground(new Color(0,0,0,50));
+        
+        }
+        
+        
+        {
+            //implementing date and time methods
+            showDate();
+            showTime();
+            AutoCompleteDecorator.decorate(jComboBox2);
+          
+        }
+        
+        
+        
+        
+    }
+    
+    void loadTable(){
+    
+    
+        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+        dtm.setRowCount(0);
+        try {
+            ResultSet rs = DB.getData("select* from replace_repair");
+           
+            while (rs.next()){
+                Vector v = new Vector();
+                v.add(rs.getString("RID"));
+                v.add(rs.getString("MID"));
+                v.add(rs.getString("type"));
+                v.add(rs.getString("quantity"));
+                v.add(rs.getString("description"));
+                v.add(rs.getString("amount"));
+                v.add(rs.getString("date"));
+                
+                
+
+                dtm.addRow(v);
+                
+                
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        
+        
+    }
+    
+    void fillcombo(){
+        
+        try {
+            jComboBox2.removeAllItems();
+            ResultSet rs = DB.getData("SELECT MID FROM machine");
+            while(rs.next()){
+            
+            jComboBox2.addItem(rs.getString("MID"));
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+    }
+    
+    void fillcomb(){
+    jComboBox1.addItem("Repair");
+    jComboBox1.addItem("Repalce");
+    
+    }
+    
+    
+      public static boolean validateDouble( String testString )
+   {
+      boolean re =true;
+      
+        
+        testString = testString.trim();
+   
+        String regexDecimal = "^-?\\d*\\.\\d+$";
+        String regexInteger = "^-?\\d+$";
+        String regexDouble = regexDecimal + "|" + regexInteger;
+ 
+        Pattern pattern = Pattern.compile(regexDouble);
+         Matcher matcher = pattern.matcher(testString);
+        re =(matcher.find());
+        
+      return re;
+   }
+    
+    
+    
+    void lastId(){
+    
+     try {
+            ResultSet rs = DB.getData("SELECT RID FROM replace_repair ORDER BY RID DESC LIMIT 1");
+            
+            while (rs.next()){
+                jLabel18.setText(rs.getString("RID"));
+                System.out.println(rs.getString("RID")); 
+               
+              
+                
+                
+                
+            }
+            
+        } catch (Exception e) {
+            System.out.println(e);
+    }
+    
+    
+    
+    
+    }
+    
+    
+    
+    
+    
+    
+    // date and time
+    void showDate(){
+        Date d =new Date();
+        System.out.println(d);
+        SimpleDateFormat adf = new SimpleDateFormat("yyyy-MM-dd");
+        String date1 = adf.format(d);
+        date.setText(date1);
+        
+        
+    }
+    
+    void showTime(){
+        new Timer(0, new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+            
+              Date d = new Date();
+              SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a");
+              String time1 = sdf.format(d);
+              time.setText(time1);
+            }
+        }).start();
+        
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jButton7 = new javax.swing.JButton();
+        jComboBox2 = new javax.swing.JComboBox();
+        jPanel1 = new javax.swing.JPanel();
+        time = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        date = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel8 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jTextField10 = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jButton3 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jTextField6 = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jButton5 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1366, 768));
+        setMinimumSize(new java.awt.Dimension(1366, 768));
+        setUndecorated(true);
+        setResizable(false);
+        setSize(new java.awt.Dimension(1366, 768));
+        getContentPane().setLayout(null);
+
+        jButton7.setBackground(new java.awt.Color(0, 204, 51));
+        jButton7.setText("View Chart");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton7);
+        jButton7.setBounds(870, 700, 170, 23);
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        getContentPane().add(jComboBox2);
+        jComboBox2.setBounds(240, 260, 220, 30);
+
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        time.setFont(new java.awt.Font("Tahoma", 0, 30)); // NOI18N
+        time.setForeground(new java.awt.Color(255, 255, 255));
+        time.setText("Time");
+        jPanel1.add(time, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 20, 219, 60));
+
+        jLabel26.setIcon(new javax.swing.ImageIcon(getClass().getResource("/newicon/cal1.png"))); // NOI18N
+        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 20, 40, 60));
+
+        jLabel27.setIcon(new javax.swing.ImageIcon(getClass().getResource("/newicon/clock2.png"))); // NOI18N
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, 40, 80));
+
+        date.setFont(new java.awt.Font("Tahoma", 0, 20)); // NOI18N
+        date.setForeground(new java.awt.Color(255, 255, 255));
+        date.setText("date");
+        jPanel1.add(date, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 30, 150, 40));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/newicon/WhatsApp Image 2018-03-06 at 5.07.21 PM.jpeg"))); // NOI18N
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-110, 20, 490, 80));
+
+        jLabel24.setIcon(new javax.swing.ImageIcon(getClass().getResource("/newicon/employee.png"))); // NOI18N
+        jLabel24.setText("jLabel22");
+        jPanel1.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 0, 70, 80));
+
+        jLabel28.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel28.setIcon(new javax.swing.ImageIcon(getClass().getResource("/newicon/cancel.png"))); // NOI18N
+        jLabel28.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel28MouseClicked(evt);
+            }
+        });
+        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(1320, 10, 30, 30));
+
+        jLabel25.setBackground(new java.awt.Color(51, 51, 51));
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel25.setText("LogOut");
+        jLabel25.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 80, 60, -1));
+
+        getContentPane().add(jPanel1);
+        jPanel1.setBounds(0, 0, 1380, 101);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jComboBox1);
+        jComboBox1.setBounds(240, 320, 220, 30);
+
+        jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jSeparator1);
+        jSeparator1.setBounds(890, 170, 120, 2);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Repair History");
+        getContentPane().add(jLabel8);
+        jLabel8.setBounds(900, 150, 100, 17);
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane2.setViewportView(jTextArea1);
+
+        getContentPane().add(jScrollPane2);
+        jScrollPane2.setBounds(240, 440, 220, 96);
+
+        jLabel23.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/customers/icons8_Back_50px.png"))); // NOI18N
+        jLabel23.setText("Back");
+        jLabel23.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel23MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel23);
+        jLabel23.setBounds(120, 110, 100, 50);
+
+        jLabel18.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        getContentPane().add(jLabel18);
+        jLabel18.setBounds(330, 180, 110, 14);
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Last Repair ID -");
+        getContentPane().add(jLabel16);
+        jLabel16.setBounds(240, 180, 110, 14);
+        getContentPane().add(jTextField10);
+        jTextField10.setBounds(770, 230, 210, 30);
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("MID/Name/Vendor");
+        getContentPane().add(jLabel15);
+        jLabel15.setBounds(630, 240, 130, 14);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "RID", "MID", "Type", "Quantity", "Description", "Cost", "Date"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(590, 270, 690, 360);
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/customers/icons8_Delete_25px.png"))); // NOI18N
+        jButton3.setText("Delete");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3);
+        jButton3.setBounds(430, 640, 93, 33);
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/customers/icons8_Update_User_25px.png"))); // NOI18N
+        jButton2.setText("Update");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(300, 640, 110, 33);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/customers/icons8_Add_User_Male_25px.png"))); // NOI18N
+        jButton1.setText("Add");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1);
+        jButton1.setBounds(180, 640, 100, 33);
+
+        jTextField6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jTextField6.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField6KeyPressed(evt);
+            }
+        });
+        getContentPane().add(jTextField6);
+        jTextField6.setBounds(240, 570, 220, 30);
+
+        jTextField4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField4KeyPressed(evt);
+            }
+        });
+        getContentPane().add(jTextField4);
+        jTextField4.setBounds(240, 380, 220, 30);
+
+        jTextField1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jTextField1.setMaximumSize(new java.awt.Dimension(65, 20));
+        jTextField1.setMinimumSize(new java.awt.Dimension(65, 20));
+        jTextField1.setPreferredSize(new java.awt.Dimension(65, 20));
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+        });
+        getContentPane().add(jTextField1);
+        jTextField1.setBounds(240, 200, 220, 30);
+
+        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Cost");
+        getContentPane().add(jLabel11);
+        jLabel11.setBounds(70, 580, 90, 17);
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setText("Description");
+        getContentPane().add(jLabel10);
+        jLabel10.setBounds(70, 450, 90, 17);
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setText("Quantity");
+        getContentPane().add(jLabel9);
+        jLabel9.setBounds(70, 390, 90, 17);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Type");
+        getContentPane().add(jLabel7);
+        jLabel7.setBounds(70, 330, 90, 17);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Serial Number");
+        getContentPane().add(jLabel6);
+        jLabel6.setBounds(70, 270, 110, 17);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("RID");
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(70, 210, 90, 17);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ico/icons8_Home_48px.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 110, 50, 40);
+
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/customers/icons8_Photo_Gallery_25px.png"))); // NOI18N
+        jButton5.setText("View All");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 20, 150, 30));
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/customers/icons8_Search_25px.png"))); // NOI18N
+        jButton4.setText("Search");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 20, 130, 30));
+
+        getContentPane().add(jPanel3);
+        jPanel3.setBounds(570, 210, 750, 480);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/back/back.jpg.jpg"))); // NOI18N
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(0, 0, 1380, 780);
+
+        jButton6.setText("Clean");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton6);
+        jButton6.setBounds(1020, 340, 70, 30);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        
+        this.dispose();
+        new Home().setVisible(true);
+        
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        
+        if(jTextField1.getText().equals("")||jComboBox2.getSelectedItem().toString().equals("")||jTextField4.getText().equals("")||jTextArea1.getText().equals("")||jTextField6.getText().equals("")||date.getText().equals("")){
+        
+            JOptionPane.showMessageDialog(this, "Fields Cannot be empty Try again");
+
+        
+        
+        }else{
+        
+         try {
+            DB.setData("insert into replace_repair value('"+jTextField1.getText()+"', '"+jComboBox2.getSelectedItem().toString()+"', '"+jComboBox1.getSelectedItem().toString()+"', '"+jTextField4.getText()+"','"+jTextArea1.getText()+"','"+jTextField6.getText()+"','"+date.getText()+"')");
+            JOptionPane.showMessageDialog(this, "Record  "+jTextField1.getText()+"  Added Successfully");
+
+        } catch (Exception e) {
+        }
+       
+          lastId();
+          
+          jTextArea1.setText("");
+          jTextField1.setText("");
+         jComboBox2.setSelectedIndex(-1);
+          jTextField4.setText("");
+          jTextField6.setText("");
+        
+        }
+        lastId();
+        
+        loadTable();
+        
+       
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+
+        
+        
+        
+        try {
+
+            DB.setData("delete from replace_repair where RID = '"+jTextField1.getText()+"'");
+
+            JOptionPane.showMessageDialog(this, "Record  "+jTextField1.getText()+" Deleted Successfully");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
+        
+        
+        
+        //clearing textfields after
+          jTextField1.setText("");      
+          jComboBox2.setSelectedIndex(-1);
+          
+        
+          lastId();
+          loadTable();
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        
+        
+        
+        
+         DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+        dtm.setRowCount(0);
+        try {
+            ResultSet rs = DB.getData("select* from customers where CID='"+jTextField10.getText()+"' or nic='"+jTextField10.getText()+"' or f_name='"+jTextField10.getText()+"'or l_name='"+jTextField10.getText()+"'or tel='"+jTextField10.getText()+"'");
+           
+            while (rs.next()){
+                Vector v = new Vector();
+                v.add(rs.getString("CID"));
+                v.add(rs.getString("f_name"));
+                v.add(rs.getString("l_name"));
+                v.add(rs.getString("address_1"));
+                v.add(rs.getString("address_2"));
+                v.add(rs.getString("city"));
+                v.add(rs.getString("tel"));
+                v.add(rs.getString("dob"));
+                v.add(rs.getString("nic"));
+                
+                if(rs.getInt("loyalty")==1){
+                
+                    v.add("Yes");
+                
+                }else{
+                v.add("NO");
+                }
+                
+                
+
+                dtm.addRow(v);
+                
+                System.out.println("inside while");
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        System.out.println("finished");
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+       
+        
+        loadTable();
+        
+        
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+      
+        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+        while(dtm.getRowCount() > 0)
+        {
+            dtm.removeRow(0);
+        }
+        
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        
+        jTextArea1.setText("");
+        
+        DefaultTableModel dtm = (DefaultTableModel) jTable1.getModel();
+
+        int row = this.jTable1.getSelectedRow();
+        this.jTextField1.setText(dtm.getValueAt(row, 0).toString());
+        this.jComboBox2.setSelectedItem(dtm.getValueAt(row, 1).toString());
+
+        this.jTextField4.setText(dtm.getValueAt(row, 3).toString());
+        
+        this.jTextArea1.append(dtm.getValueAt(row, 4).toString());
+        this.jTextField6.setText(dtm.getValueAt(row, 5).toString());
+    
+        
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       
+       
+        
+       
+        String type = jComboBox1.getSelectedItem().toString();
+        
+        
+        
+        try {
+
+            DB.setData("update replace_repair set MID='"+jComboBox2.getSelectedItem().toString()+"', type='"+type+"',quantity='"+jTextField4.getText()+"', description='"+jTextArea1.getText()+"', amount='"+jTextField6.getText()+"' where RID = '"+jTextField1.getText()+"'");
+            
+            
+             JOptionPane.showMessageDialog(this, "  updated Successfully");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+
+        }
+                
+        //clearing textfields after
+          jTextField1.setText("");      
+          jComboBox2.setSelectedIndex(-1);
+//          jTextField3.setText("");    
+          jTextField4.setText("");    
+         jTextArea1.setText("");    
+          jTextField6.setText("");    
+          
+        
+          
+          //
+          lastId();
+          loadTable();
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+        jComboBox2.requestFocus();
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jTextField4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyPressed
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            if(validateDouble(jTextField4.getText())){
+              jTextArea1.requestFocus();
+              jTextField4.setForeground(Color.BLACK);
+        
+            }else{
+                jTextField4.setForeground(Color.RED);
+                jTextField4.requestFocus();
+            }
+        }
+    }//GEN-LAST:event_jTextField4KeyPressed
+
+    private void jTextField6KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField6KeyPressed
+        
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER){
+            if(validateDouble(jTextField6.getText())){
+                jButton1.requestFocus();
+                jTextField6.setForeground(Color.BLACK);
+            }else{
+                
+                jTextField6.setForeground(Color.red);
+                jTextField6.requestFocus();
+            
+            }
+        
+        }
+    }//GEN-LAST:event_jTextField6KeyPressed
+
+    private void jLabel23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel23MouseClicked
+        this.dispose();
+        new Machine().setVisible(true);
+    }//GEN-LAST:event_jLabel23MouseClicked
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jLabel28MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel28MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jLabel28MouseClicked
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+       try {
+            String path;
+                path = "reports\\chart.jrxml";
+                JasperReport compileReport = JasperCompileManager.compileReport(path);
+                JasperPrint fillreport = JasperFillManager.fillReport(compileReport, null, DB.getConnection());
+                JasperViewer.viewReport(fillreport, false);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Home().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel date;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField10;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField6;
+    private javax.swing.JLabel time;
+    // End of variables declaration//GEN-END:variables
+}
