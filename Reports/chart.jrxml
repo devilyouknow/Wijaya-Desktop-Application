@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="be3d3a3b-9065-4806-93c0-3182f8dbccfd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT MID,COUNT(MID) FROM replace_repair group BY MID;]]>
+	</queryString>
+	<field name="MID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COUNT(MID)" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="112" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="44" splitType="Stretch">
+			<staticText>
+				<reportElement x="203" y="0" width="157" height="38" uuid="97962249-8331-4a7a-b133-85d029f2cece"/>
+				<textElement>
+					<font size="26" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Repair Chart]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="398" splitType="Stretch">
+			<barChart>
+				<chart>
+					<reportElement x="18" y="103" width="514" height="232" uuid="f6dae931-2d67-4de8-8119-c478940802c4"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{MID}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{MID}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{COUNT(MID)}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<barPlot>
+					<plot/>
+					<itemLabel/>
+					<categoryAxisFormat>
+						<axisFormat/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat/>
+					</valueAxisFormat>
+				</barPlot>
+			</barChart>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="43" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

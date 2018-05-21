@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9ff26c25-d6bc-4e94-913c-11814d0845e6">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT * FROM t_appointments;]]>
+	</queryString>
+	<field name="AID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="EID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="date" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="from1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="to1" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="92" splitType="Stretch">
+			<image>
+				<reportElement x="131" y="0" width="303" height="87" uuid="8bc9a0db-332a-4655-b185-59fa4874415f"/>
+				<imageExpression><![CDATA["D:\\Projects\\Netbeans\\Wijaya_Last\\Reports\\Untitled-6.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="5" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="207" y="0" width="148" height="45" uuid="747f03f6-1ab0-410b-91f8-944bdb341688"/>
+				<textElement textAlignment="Center">
+					<font size="28" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOKEN]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="62" y="25" width="100" height="20" uuid="25419030-9f79-4131-9b66-a09a596ea588"/>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="20" y="25" width="42" height="20" uuid="43e6c4ed-9646-47e9-ac1f-ea9adf0fcf06"/>
+				<text><![CDATA[DATE -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="5" width="41" height="20" uuid="598b3cc6-60ea-4b3e-a3e5-5ce41a59079f"/>
+				<text><![CDATA[FROM -]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="417" y="24" width="27" height="20" uuid="14d8096b-ef44-4b64-a3fe-3824269aaa61"/>
+				<text><![CDATA[TO -]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="458" y="5" width="35" height="20" uuid="26d09ab2-5cc8-41f9-802b-eb74a343d4cc"/>
+				<textFieldExpression><![CDATA[$F{from1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="458" y="24" width="35" height="20" uuid="aa9cb083-6c26-4f4f-ad49-a5510e149843"/>
+				<textFieldExpression><![CDATA[$F{to1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="493" y="5" width="25" height="20" uuid="216d194c-08b2-439c-b285-3516b4c4db5f"/>
+				<text><![CDATA[h]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="493" y="24" width="25" height="20" uuid="ceb4aaa6-7109-4cc7-98e6-6bc2e161adc1"/>
+				<text><![CDATA[h]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="249" splitType="Stretch">
+			<rectangle>
+				<reportElement x="62" y="46" width="471" height="107" uuid="b89de44f-adbc-4d6c-9f3b-6659aaef53b5"/>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="164" width="555" height="1" uuid="76ae2d51-a78a-4823-b809-d62536903d3b"/>
+			</line>
+			<staticText>
+				<reportElement x="105" y="164" width="428" height="15" uuid="c620ad9f-3637-45f0-a62f-3f67c250c935"/>
+				<text><![CDATA[Remeber to bring the token with you when you are attending an appointment]]></text>
+			</staticText>
+			<componentElement>
+				<reportElement x="173" y="61" width="261" height="82" uuid="7ad1ba36-00d3-46d7-ac98-3fdc7c174622"/>
+				<jr:barbecue xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" type="Code39 (Extended)" drawText="false" checksumRequired="false">
+					<jr:codeExpression><![CDATA[$F{AID}]]></jr:codeExpression>
+				</jr:barbecue>
+			</componentElement>
+		</band>
+	</detail>
+</jasperReport>
